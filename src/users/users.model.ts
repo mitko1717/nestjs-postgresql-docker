@@ -9,7 +9,7 @@ interface UserCreationAttrs {
 // describing how to save user in db
 @Table({ tableName: 'users' })
 export class User extends Model<User, UserCreationAttrs> {
-    @ApiProperty({ example: '1', description: 'unoque id' })
+    @ApiProperty({ example: '1', description: 'unoqie id' })
     @Column({ type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true })
     id: number;
 

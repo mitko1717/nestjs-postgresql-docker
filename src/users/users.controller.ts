@@ -6,6 +6,10 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 // goal of controller - getting requests
 // routing mechanism controlls which controller will get request
+// to make controller work - nedd to register it in module
+// add service into instructor to use class object
+// nest response for creating
+// controller shouldn't contain logic, only get request and return response
 
 @ApiTags('users')
 @Controller('users')
