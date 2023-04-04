@@ -1,12 +1,14 @@
+import { User } from './../users/users.model';
 import { ApiProperty } from "@nestjs/swagger";
-import { Column, DataType, Model, Table } from "sequelize-typescript";
+import { BelongsToMany, Column, DataType, Model, Table } from "sequelize-typescript";
+import { UserRoles } from './user-roles.model';
 
 interface RoleCreationAttrs {
     email: string;
     password: string
 }
 
-// describing how to save user in db
+// describing how to save role in db
 @Table({ tableName: 'roles' })
 export class Role extends Model<Role, RoleCreationAttrs> {
     @ApiProperty({ example: '1', description: 'unique id' })
@@ -20,4 +22,8 @@ export class Role extends Model<Role, RoleCreationAttrs> {
     @ApiProperty({ example: 'admininstrator', description: 'role description' })
     @Column({ type: DataType.STRING, allowNull: false })
     description: string;
+
+    // point entity to connect with and table we make it
+    @BelongsToMany(() => User, () => UserRoles)
+    users: User[]
 }
