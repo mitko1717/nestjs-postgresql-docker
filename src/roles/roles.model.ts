@@ -10,8 +10,8 @@ import {
 import { UserRoles } from './user-roles.model';
 
 interface RoleCreationAttrs {
-  email: string;
-  password: string;
+  value: string;
+  description: string;
 }
 
 // describing how to save role in db
