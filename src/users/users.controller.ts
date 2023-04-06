@@ -1,9 +1,11 @@
+import { RolesGuard } from './../auth/roles.quard';
 import { JwtAuthGuard } from './../auth/jwt-auth.guard';
 import { User } from './users.model';
 import { CreateUserDto } from './dto/create-user.dto';
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Roles } from 'src/auth/roles-auth.decorator';
 
 // goal of controller - getting requests
 // routing mechanism controlls which controller will get request
@@ -29,7 +31,9 @@ export class UsersController {
     @ApiOperation({ summary: 'get all users' })
     @ApiResponse({ status: 200, type: [User] })
     // UseGuards to restrict access to some endpoint
-    @UseGuards(JwtAuthGuard)
+    // @UseGuards(JwtAuthGuard)
+    @Roles('admin')
+    @UseGuards(RolesGuard)
     @Get()
     getAll() {
         return this.userService.getAllUsers()
