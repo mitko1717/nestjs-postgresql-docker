@@ -9,16 +9,16 @@ async function start() {
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
-      .setTitle('nest-js')
-      .setDescription('documentation')
-      .setVersion('1.0.0')
-      .addTag('dima')
-      .build()
-  
-      const document = SwaggerModule.createDocument(app, config)
-      SwaggerModule.setup('/api/docs', app, document)
-      // restrict access to all endpoits for all unauthorizated users
-      // app.useGlobalGuards(new JwtAuthGuard())
+    .setTitle('nest-js')
+    .setDescription('documentation')
+    .setVersion('1.0.0')
+    .addTag('dima')
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('/api/docs', app, document);
+  // restrict access to all endpoits for all unauthorizated users
+  // app.useGlobalGuards(new JwtAuthGuard())
 
   await app.listen(PORT, () => console.log(`server started on port ${PORT}`));
 }

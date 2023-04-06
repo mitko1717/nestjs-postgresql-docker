@@ -8,18 +8,15 @@ import { JwtModule } from '@nestjs/jwt';
   controllers: [AuthController],
   providers: [AuthService],
   imports: [
-    // to prevent circlular dependency between modules 
+    // to prevent circlular dependency between modules
     forwardRef(() => UsersModule),
     JwtModule.register({
       secret: process.env.PRIVATE_KEY || 'SECRET',
       signOptions: {
-        expiresIn: '24h'
-      }
-    })
+        expiresIn: '24h',
+      },
+    }),
   ],
-  exports: [
-    AuthService,
-    JwtModule
-  ]
+  exports: [AuthService, JwtModule],
 })
 export class AuthModule {}

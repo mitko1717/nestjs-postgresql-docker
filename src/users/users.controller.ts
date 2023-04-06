@@ -17,25 +17,25 @@ import { Roles } from 'src/auth/roles-auth.decorator';
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
-    // inject service
-    constructor(private userService: UsersService) {} 
+  // inject service
+  constructor(private userService: UsersService) {}
 
-    // endpoints
-    @ApiOperation({ summary: 'user creating' })
-    @ApiResponse({ status: 200, type: User })
-    @Post() // body of request of userDto type
-    create(@Body() userDto: CreateUserDto) {
-        return this.userService.createUser(userDto)
-    }
+  // endpoints
+  @ApiOperation({ summary: 'user creating' })
+  @ApiResponse({ status: 200, type: User })
+  @Post() // body of request of userDto type
+  create(@Body() userDto: CreateUserDto) {
+    return this.userService.createUser(userDto);
+  }
 
-    @ApiOperation({ summary: 'get all users' })
-    @ApiResponse({ status: 200, type: [User] })
-    // UseGuards to restrict access to some endpoint
-    // @UseGuards(JwtAuthGuard)
-    @Roles('admin')
-    @UseGuards(RolesGuard)
-    @Get()
-    getAll() {
-        return this.userService.getAllUsers()
-    }
+  @ApiOperation({ summary: 'get all users' })
+  @ApiResponse({ status: 200, type: [User] })
+  // UseGuards to restrict access to some endpoint
+  // @UseGuards(JwtAuthGuard)
+  @Roles('admin')
+  @UseGuards(RolesGuard)
+  @Get()
+  getAll() {
+    return this.userService.getAllUsers();
+  }
 }
