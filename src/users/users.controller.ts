@@ -1,8 +1,9 @@
+import { ValidationPipe } from './../pipes/validation.pipe';
 import { RolesGuard } from './../auth/roles.quard';
 // import { JwtAuthGuard } from './../auth/jwt-auth.guard';
 import { User } from './users.model';
 import { CreateUserDto } from './dto/create-user.dto';
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards, UsePipes } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Roles } from 'src/auth/roles-auth.decorator';
@@ -23,8 +24,10 @@ export class UsersController {
   constructor(private userService: UsersService) {}
 
   // endpoints
+
   @ApiOperation({ summary: 'user creating' })
   @ApiResponse({ status: 200, type: User })
+  @UsePipes(ValidationPipe)
   @Post() // body of request of userDto type
   create(@Body() userDto: CreateUserDto) {
     return this.userService.createUser(userDto);
