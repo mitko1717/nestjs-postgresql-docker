@@ -32,6 +32,6 @@ export class Post extends Model<Post, PostCreationAttrs> {
     author: User
 
     // HasMany cause one user can have a lot of posts
-    @HasMany(() => Post)
-    posts: Post[]
+    // @HasMany(() => Post)
+    // posts: Post[]
 }

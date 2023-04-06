@@ -9,6 +9,9 @@ import { Role } from './roles/roles.model';
 import { AuthModule } from './auth/auth.module';
 import { PostsModule } from './posts/posts.module';
 import { Post } from './posts/posts.model';
+import { FilesModule } from './files/files.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import * as path from 'path';
 
 @Module({
   controllers: [],
@@ -19,6 +22,10 @@ import { Post } from './posts/posts.model';
     ConfigModule.forRoot({
       // process.env.NODE_ENV forms when app is running via cross-env in package.json
       envFilePath: `.${process.env.NODE_ENV}.env`,
+    }),
+    // module to serve static
+    ServeStaticModule.forRoot({
+      rootPath: path.resolve(__dirname, 'static'),
     }),
     SequelizeModule.forRoot({
       dialect: 'postgres',
@@ -34,6 +41,7 @@ import { Post } from './posts/posts.model';
     RolesModule,
     AuthModule,
     PostsModule,
+    FilesModule,
   ],
 })
 export class AppModule {}
