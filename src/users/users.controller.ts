@@ -1,11 +1,13 @@
 import { RolesGuard } from './../auth/roles.quard';
-import { JwtAuthGuard } from './../auth/jwt-auth.guard';
+// import { JwtAuthGuard } from './../auth/jwt-auth.guard';
 import { User } from './users.model';
 import { CreateUserDto } from './dto/create-user.dto';
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Roles } from 'src/auth/roles-auth.decorator';
+import { AddRoleDto } from './dto/add-role.dto';
+import { BanUserDto } from './dto/ban-user.dto';
 
 // goal of controller - getting requests
 // routing mechanism controlls which controller will get request
@@ -37,5 +39,23 @@ export class UsersController {
   @Get()
   getAll() {
     return this.userService.getAllUsers();
+  }
+
+  @ApiOperation({ summary: 'set role' })
+  @ApiResponse({ status: 200 })
+  @Roles('admin')
+  @UseGuards(RolesGuard)
+  @Post('/role')
+  addRole(@Body() dto: AddRoleDto) {
+    return this.userService.addRole(dto);
+  }
+
+  @ApiOperation({ summary: 'ban user' })
+  @ApiResponse({ status: 200 })
+  @Roles('admin')
+  @UseGuards(RolesGuard)
+  @Post('/ban')
+  ban(@Body() dto: BanUserDto) {
+    return this.userService.ban(dto);
   }
 }
