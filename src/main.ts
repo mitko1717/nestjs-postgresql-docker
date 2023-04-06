@@ -22,7 +22,7 @@ async function start() {
   // app.useGlobalGuards(new JwtAuthGuard())
 
   // global pipes
-  app.useGlobalPipes(new ValidationPipe())
+  app.useGlobalPipes(new ValidationPipe());
 
   await app.listen(PORT, () => console.log(`server started on port ${PORT}`));
 }

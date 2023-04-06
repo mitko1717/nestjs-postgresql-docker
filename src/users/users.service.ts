@@ -40,27 +40,28 @@ export class UsersService {
 
   async addRole(dto: AddRoleDto) {
     // get user
-    const user = await this.userRepository.findByPk(dto.userId)
+    const user = await this.userRepository.findByPk(dto.userId);
     // get role from bd
-    const role = await this.roleService.getRoleByValue(dto.value)
-    
+    const role = await this.roleService.getRoleByValue(dto.value);
+
     // if conditions true - add new role to default one
     if (role && user) {
-        await user.$add('role', role.id)
-        return dto
+      await user.$add('role', role.id);
+      return dto;
     }
 
-    throw new HttpException('user or role wasnt found', HttpStatus.NOT_FOUND)
+    throw new HttpException('user or role wasnt found', HttpStatus.NOT_FOUND);
   }
 
   async ban(dto: BanUserDto) {
-    const user = await this.userRepository.findByPk(dto.userId)
+    const user = await this.userRepository.findByPk(dto.userId);
 
-    if (!user) throw new HttpException('user wasnt found', HttpStatus.NOT_FOUND)
+    if (!user)
+      throw new HttpException('user wasnt found', HttpStatus.NOT_FOUND);
 
-    user.banned = true
-    user.banReasin = dto.banReason
-    await user.save() // update value in db
-    return user
+    user.banned = true;
+    user.banReasin = dto.banReason;
+    await user.save(); // update value in db
+    return user;
   }
 }
